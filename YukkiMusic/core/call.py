@@ -49,8 +49,6 @@ autoend = {}
 counter = {}
 AUTO_END_TIME = 3
 
-@check_blacklist()
-@authorized_users_only
 async def join_chat(c: Client, m: Message):
     chat_id = m.chat.id
     try:
