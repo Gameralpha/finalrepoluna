@@ -25,6 +25,7 @@ PLAY_COMMAND : ["play", "vplay", "cplay", "cvplay", "playforce", "vplayforce", "
 PLAYMODE_COMMAND : ["playmode"]
 CHANNELPLAY_COMMAND : ["channelplay"]
 STREAM_COMMAND : ["stream", "cstream", "streamforce"]
+PLAY_COMMANDD : ["userbotjoin"]
 
 #Playlists Command
 PLAYLIST_COMMAND : ["playlist"]
