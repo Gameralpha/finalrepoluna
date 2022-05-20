@@ -49,8 +49,13 @@ autoend = {}
 counter = {}
 AUTO_END_TIME = 3
 
-@Client.on_message(
-    command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"]) & other_filters
+PLAY_COMMANDD = get_command("PLAY_COMMANDD")
+
+@app.on_message(
+    filters.command(PLAY_COMMANDD)
+    & filters.group
+    & ~filters.edited
+    & ~BANNED_USERS
 )
 @check_blacklist()
 @authorized_users_only
