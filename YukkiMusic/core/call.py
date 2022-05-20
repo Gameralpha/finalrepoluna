@@ -49,6 +49,28 @@ autoend = {}
 counter = {}
 AUTO_END_TIME = 3
 
+@Client.on_message(
+    command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"]) & other_filters
+)
+@check_blacklist()
+@authorized_users_only
+async def join_chat(c: Client, m: Message):
+    chat_id = m.chat.id
+    try:
+        invitelink = (await c.get_chat(chat_id)).invite_link
+        if not invitelink:
+            await c.export_chat_invite_link(chat_id)
+            invitelink = (await c.get_chat(chat_id)).invite_link
+        if invitelink.startswith("https://t.me/+"):
+            invitelink = invitelink.replace(
+                "https://t.me/+", "https://t.me/joinchat/"
+            )
+        await user.join_chat(invitelink)
+        await remove_active_chat(chat_id)
+        return await user.send_message(chat_id, "✅ userbot joined this chat")
+    except UserAlreadyParticipant:
+        return await user.send_message(chat_id, "✅ userbot already in this chat")
+
 
 async def _clear_(chat_id):
     db[chat_id] = []
