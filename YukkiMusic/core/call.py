@@ -101,9 +101,11 @@ async def join_assistant(self, original_chat_id, chat_id):
             )
              await user.join_chat(invitelink)
              await remove_active_chat(chat_id) 
-             return await user.send_message(chat_id, "✅ userbot joined this chat")
+             return await app.send_message(
+                        original_chat_id,  "✅ userbot joined this chat")
              except UserAlreadyParticipant:
-             return await user.send_message(chat_id, "✅ userbot already in this chat")
+             return await app.send_message(
+                        original_chat_id,  "✅ userbot already in this chat")
              await userbot.join_chat(chat.username)
 
 async def _clear_(chat_id):
