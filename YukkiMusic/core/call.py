@@ -115,7 +115,7 @@ async def join_assistant(self, original_chat_id, chat_id):
                     await userbot.join_chat(invitelink)
                     return await app.send_message(
                         original_chat_id,  "✅ userbot joined this chat")
-                 except UserAlreadyParticipant:
+               except UserAlreadyParticipant:
                     return await app.send_message(
                         original_chat_id,  "✅ userbot already in this chat")
                     await userbot.join_chat(invitelink)
