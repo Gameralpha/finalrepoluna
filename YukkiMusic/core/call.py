@@ -47,10 +47,6 @@ from YukkiMusic.utils.thumbnails import gen_thumb
 from strings import get_command
 from YukkiMusic.utils.decorators import AdminRightsCheck
 
-autoend = {}
-counter = {}
-AUTO_END_TIME = 3
-
 # Commands
 ASST_COMMAND = get_command("ASST_COMMAND")
 
@@ -125,6 +121,10 @@ async def join_assistant(self, original_chat_id, chat_id):
                     return await app.send_message(
                         original_chat_id,  "✅ userbot already in this chat")
                     await userbot.join_chat(invitelink)
+                    
+autoend = {}
+counter = {}
+AUTO_END_TIME = 3
 
 async def _clear_(chat_id):
     db[chat_id] = []
