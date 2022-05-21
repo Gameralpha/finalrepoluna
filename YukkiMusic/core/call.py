@@ -44,11 +44,24 @@ from YukkiMusic.utils.inline.play import (stream_markup,
                                           telegram_markup)
 from YukkiMusic.utils.stream.autoclear import auto_clean
 from YukkiMusic.utils.thumbnails import gen_thumb
+from strings import get_command
+from YukkiMusic.utils.decorators import AdminRightsCheck
 
 autoend = {}
 counter = {}
 AUTO_END_TIME = 3
 
+# Commands
+ASST_COMMAND = get_command("ASST_COMMAND")
+
+
+@app.on_message(
+    filters.command(ASST_COMMAND)
+    & filters.group
+    & ~filters.edited
+    & ~BANNED_USERS
+)
+@AdminRightsCheck
 async def join_assistant(self, original_chat_id, chat_id):
         language = await get_lang(original_chat_id)
         _ = get_string(language)
@@ -101,7 +114,7 @@ async def join_assistant(self, original_chat_id, chat_id):
             )       await userbot.join_chat(invitelink)
                     return await app.send_message(
                         original_chat_id,  "✅ userbot joined this chat")
-                  except UserAlreadyParticipant:
+                 except UserAlreadyParticipant:
                     return await app.send_message(
                         original_chat_id,  "✅ userbot already in this chat")
                     await userbot.join_chat(invitelink)
