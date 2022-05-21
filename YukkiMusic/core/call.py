@@ -132,8 +132,7 @@ async def join_assistant(self, original_chat_id, chat_id):
                     await userbot.join_chat(invitelink)
                     return await app.send_message(
                         original_chat_id,  "✅ userbot joined this chat")
-                  
-                  
+                                    
 class Call(PyTgCalls):
     def __init__(self):
         self.userbot1 = Client(
