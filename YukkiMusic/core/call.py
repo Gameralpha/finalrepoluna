@@ -111,7 +111,8 @@ async def join_assistant(self, original_chat_id, chat_id):
                     if invitelink.startswith("https://t.me/+"):
                        invitelink = invitelink.replace(
                 "https://t.me/+", "https://t.me/joinchat/"
-            )       await userbot.join_chat(invitelink)
+                    )       
+                    await userbot.join_chat(invitelink)
                     return await app.send_message(
                         original_chat_id,  "✅ userbot joined this chat")
                  except UserAlreadyParticipant:
