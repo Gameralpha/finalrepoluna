@@ -95,8 +95,8 @@ async def join_assistant(self, original_chat_id, chat_id):
                     m = await app.send_message(
                         original_chat_id, _["call_5"]
                     )
-            if invitelink.startswith("https://t.me/+"):
-            invitelink = invitelink.replace(
+                    if invitelink.startswith("https://t.me/+"):
+                       invitelink = invitelink.replace(
                 "https://t.me/+", "https://t.me/joinchat/"
             )
              await user.join_chat(invitelink)
