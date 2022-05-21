@@ -133,8 +133,8 @@ async def join_assistant(self, original_chat_id, chat_id):
                     return await app.send_message(
                         original_chat_id,  "✅ userbot joined this chat")
                                     
-class Call(PyTgCalls):
-    def __init__(self):
+    class Call(PyTgCalls):
+     def __init__(self):
         self.userbot1 = Client(
             api_id=config.API_ID,
             api_hash=config.API_HASH,
