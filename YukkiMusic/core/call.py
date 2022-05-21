@@ -121,7 +121,6 @@ async def join_assistant(self, original_chat_id, chat_id):
                     return await app.send_message(
                         original_chat_id,  "✅ userbot already in this chat")
                     await userbot.join_chat(invitelink)
-                    
 autoend = {}
 counter = {}
 AUTO_END_TIME = 3
