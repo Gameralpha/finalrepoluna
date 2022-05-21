@@ -98,15 +98,13 @@ async def join_assistant(self, original_chat_id, chat_id):
                     if invitelink.startswith("https://t.me/+"):
                        invitelink = invitelink.replace(
                 "https://t.me/+", "https://t.me/joinchat/"
-            )
-              await user.join_chat(invitelink)
-              await remove_active_chat(chat_id) 
-              return await app.send_message(
+            )       await user.join_chat(invitelink)
+                    return await app.send_message(
                         original_chat_id,  "✅ userbot joined this chat")
-              except UserAlreadyParticipant:
-              return await app.send_message(
+                    except UserAlreadyParticipant:
+                    return await app.send_message(
                         original_chat_id,  "✅ userbot already in this chat")
-              await userbot.join_chat(chat.username)
+                    await userbot.join_chat(invitelink)
 
 async def _clear_(chat_id):
     db[chat_id] = []
