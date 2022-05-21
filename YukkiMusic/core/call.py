@@ -49,23 +49,62 @@ autoend = {}
 counter = {}
 AUTO_END_TIME = 3
 
-async def join_chat(c: Client, m: Message):
-    chat_id = m.chat.id
-    try:
-        invitelink = (await c.get_chat(chat_id)).invite_link
-        if not invitelink:
-            await c.export_chat_invite_link(chat_id)
-            invitelink = (await c.get_chat(chat_id)).invite_link
-        if invitelink.startswith("https://t.me/+"):
+async def join_assistant(self, original_chat_id, chat_id):
+        language = await get_lang(original_chat_id)
+        _ = get_string(language)
+        userbot = await get_assistant(chat_id)
+        try:
+            try:
+                get = await app.get_chat_member(chat_id, userbot.id)
+            except ChatAdminRequired:
+                raise AssistantErr(_["call_1"])
+            if get.status == "banned" or get.status == "kicked":
+                raise AssistantErr(
+                    _["call_2"].format(userbot.username, userbot.id)
+                )
+        except UserNotParticipant:
+            chat = await app.get_chat(chat_id)
+            if chat.username:
+                try:
+                    await userbot.join_chat(chat.username)
+                except UserAlreadyParticipant:
+                    pass
+                except Exception as e:
+                    raise AssistantErr(_["call_3"].format(e))
+            else:
+                try:
+                    try:
+                        try:
+                            invitelink = chat.invite_link
+                            if invitelink is None:
+                                invitelink = (
+                                    await app.export_chat_invite_link(
+                                        chat_id
+                                    )
+                                )
+                        except:
+                            invitelink = (
+                                await app.export_chat_invite_link(
+                                    chat_id
+                                )
+                            )
+                    except ChatAdminRequired:
+                        raise AssistantErr(_["call_4"])
+                    except Exception as e:
+                        raise AssistantErr(e)
+                    m = await app.send_message(
+                        original_chat_id, _["call_5"]
+                    )
+            if invitelink.startswith("https://t.me/+"):
             invitelink = invitelink.replace(
                 "https://t.me/+", "https://t.me/joinchat/"
             )
-        await user.join_chat(invitelink)
-        await remove_active_chat(chat_id)
-        return await user.send_message(chat_id, "✅ userbot joined this chat")
-    except UserAlreadyParticipant:
-        return await user.send_message(chat_id, "✅ userbot already in this chat")
-
+             await user.join_chat(invitelink)
+             await remove_active_chat(chat_id) 
+             return await user.send_message(chat_id, "✅ userbot joined this chat")
+             except UserAlreadyParticipant:
+             return await user.send_message(chat_id, "✅ userbot already in this chat")
+             await userbot.join_chat(chat.username)
 
 async def _clear_(chat_id):
     db[chat_id] = []
